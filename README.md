@@ -117,6 +117,50 @@ SecureSphere generates downloadable PDF reports including:
 Reports are stored with metadata and can be downloaded through authenticated API endpoints.
 
 ---
+Installation
+1. Clone the repository
+git clone git@github.com:Dark-Devil-Lucifer/SecureSphere.git
+cd SecureSphere
+2. Create a virtual environment
+python -m venv venv
+source venv/bin/activate
+3. Install dependencies
+pip install -r requirements.txt
+4. Configure environment variables
+
+Copy the example configuration:
+
+cp .env.example .env
+
+Configure the following values:
+
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=securesphere
+DB_USER=
+DB_PASSWORD=
+
+SECURESPHERE_USERNAME=admin
+
+SECURESPHERE_ADMIN_PASSWORD=
+SECURESPHERE_ANALYST_PASSWORD=
+SECURESPHERE_VIEWER_PASSWORD=
+
+JWT_SECRET_KEY=
+
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+
+Never commit .env or real credentials to GitHub.
+
+5. Prepare the database
+
+Create the MySQL database and apply:
+
+database/schema.sql
+6. Start SecureSphere
+uvicorn backend.main:app \
+    --host 127.0.0.1 \
+    --port 8000
 
 ## Architecture
 
