@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SecureSphere | Alerts</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/alerts.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h1>SecureSphere</h1>
+
+            <span>
+                Security Operations
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="assets.html"
+                class="nav-item"
+            >
+                Assets
+            </a>
+
+
+            <a
+                href="vulnerabilities.html"
+                class="nav-item"
+            >
+                Vulnerabilities
+            </a>
+
+
+            <a
+                href="/app/pages/security-events.html"
+                class="nav-item"
+            >
+                Security Events
+            </a>
+
+
+            <a
+                href="/app/pages/alerts.html"
+                class="nav-item active"
+            >
+                Alerts
+            </a>
+
+
+            <a
+                href="/app/pages/incidents.html"
+                class="nav-item"
+            >
+                Incidents
+            </a>
+
+
+            <a
+                href="/app/pages/risk-assessment.html"
+                class="nav-item"
+            >
+                Risk Assessment
+            </a>
+
+
+            <a
+                href="/app/pages/assessments.html"
+                class="nav-item"
+            >
+                Assessments
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    Security Alerts
+                </h2>
+
+                <p>
+                    Review and manage detected security alerts
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <span id="userName">
+                    User
+                </span>
+
+                <span
+                    id="userRole"
+                    class="role-badge"
+                >
+                    ROLE
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <section class="alert-summary">
+
+            <div class="summary-card">
+
+                <span class="summary-label">
+                    Total Alerts
+                </span>
+
+                <strong id="totalAlerts">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card critical-card">
+
+                <span class="summary-label">
+                    Critical
+                </span>
+
+                <strong id="criticalAlerts">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card high-card">
+
+                <span class="summary-label">
+                    High
+                </span>
+
+                <strong id="highAlerts">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card new-card">
+
+                <span class="summary-label">
+                    New
+                </span>
+
+                <strong id="newAlerts">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <section class="alert-toolbar">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search alerts..."
+            >
+
+
+            <select id="severityFilter">
+
+                <option value="">
+                    All Severity
+                </option>
+
+                <option value="CRITICAL">
+                    Critical
+                </option>
+
+                <option value="HIGH">
+                    High
+                </option>
+
+                <option value="MEDIUM">
+                    Medium
+                </option>
+
+                <option value="LOW">
+                    Low
+                </option>
+
+                <option value="INFORMATIONAL">
+                    Informational
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="NEW">
+                    New
+                </option>
+
+                <option value="INVESTIGATING">
+                    Investigating
+                </option>
+
+                <option value="RESOLVED">
+                    Resolved
+                </option>
+
+                <option value="CLOSED">
+                    Closed
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <section class="alerts-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h3>
+                        Detected Alerts
+                    </h3>
+
+                    <span id="alertCount">
+                        Loading...
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Alert ID
+                            </th>
+
+                            <th>
+                                Title
+                            </th>
+
+                            <th>
+                                Rule
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Triggered
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="alertTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty-state"
+                            >
+                                Loading alerts...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ALERT DETAILS MODAL -->
+
+<div
+    id="alertModal"
+    class="modal hidden"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3>
+                Alert Details
+            </h3>
+
+            <button
+                id="closeModalButton"
+                class="close-button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="alertDetails">
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <select id="alertStatusSelect">
+
+                <option value="NEW">
+                    New
+                </option>
+
+                <option value="INVESTIGATING">
+                    Investigating
+                </option>
+
+                <option value="RESOLVED">
+                    Resolved
+                </option>
+
+                <option value="CLOSED">
+                    Closed
+                </option>
+
+            </select>
+
+
+            <button
+                id="updateStatusButton"
+                class="primary-button"
+            >
+                Update Status
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+
+<script src="../js/auth.js"></script>
+
+<script src="../js/alerts.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Database / local runtime files
+*.sqlite
+*.sqlite3
+*.db
+
+# Generated reports
+reports/generated/*
+!reports/generated/.gitkeep
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Node
+node_modules/
+npm-debug.log*

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SecureSphere | Login</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/login.css"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-card">
+
+            <div class="brand">
+
+                <h1>SecureSphere</h1>
+
+                <p>
+                    Security Operations Platform
+                </p>
+
+            </div>
+
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                >
+                    Sign In
+                </button>
+
+
+                <div
+                    id="loginError"
+                    class="error-message"
+                ></div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+
+    <script>
+
+        const loginForm =
+            document.getElementById(
+                "loginForm"
+            );
+
+
+        const loginError =
+            document.getElementById(
+                "loginError"
+            );
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+                loginError.textContent = "";
+
+
+                const username =
+                    document.getElementById(
+                        "username"
+                    ).value.trim();
+
+
+                const password =
+                    document.getElementById(
+                        "password"
+                    ).value;
+
+
+                const button =
+                    document.getElementById(
+                        "loginButton"
+                    );
+
+
+                button.disabled = true;
+
+                button.textContent =
+                    "Signing in...";
+
+
+                try {
+
+                    const data =
+                        await loginUser(
+                            username,
+                            password
+                        );
+
+
+                    saveLoginSession(
+                        data
+                    );
+
+
+                    window.location.href =
+                        "dashboard.html";
+
+
+                } catch (error) {
+
+                    loginError.textContent =
+                        error.message;
+
+                    button.disabled =
+                        false;
+
+                    button.textContent =
+                        "Sign In";
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

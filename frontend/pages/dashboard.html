@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        SecureSphere | Dashboard
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h1>SecureSphere</h1>
+
+            <span>
+                Security Operations
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="/app/pages/dashboard.html"
+                class="nav-item active"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="/app/pages/assets.html"
+                class="nav-item"
+            >
+                Assets
+            </a>
+
+
+            <a
+                href="/app/pages/vulnerabilities.html"
+                class="nav-item"
+            >
+                Vulnerabilities
+            </a>
+
+
+            <a
+                href="/app/pages/security-events.html"
+                class="nav-item"
+            >
+                Security Events
+            </a>
+
+
+            <a
+                href="/app/pages/alerts.html"
+                class="nav-item"
+            >
+                Alerts
+            </a>
+
+
+            <a
+                href="/app/pages/incidents.html"
+                class="nav-item"
+            >
+                Incidents
+            </a>
+
+
+            <a
+                href="/app/pages/risk-assessment.html"
+                class="nav-item"
+            >
+                Risk Assessment
+            </a>
+
+
+            <a
+                href="/app/pages/assessments.html"
+                class="nav-item"
+            >
+                Assessments
+            </a>
+
+	    <a
+		href="/app/pages/reports.html"
+    		class="nav-item"
+	    >
+    		Reports	
+	    </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    Security Dashboard
+                </h2>
+
+                <p id="welcomeText">
+                    Loading...
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <span id="userName">
+                    User
+                </span>
+
+                <span
+                    id="userRole"
+                    class="role-badge"
+                >
+                    ROLE
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- STATISTICS -->
+
+        <section class="stats-grid">
+
+            <article class="stat-card">
+
+                <span class="stat-label">
+                    Total Assets
+                </span>
+
+                <strong
+                    id="totalAssets"
+                    class="stat-value"
+                >
+                    —
+                </strong>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span class="stat-label">
+                    Active Assets
+                </span>
+
+                <strong
+                    id="activeAssets"
+                    class="stat-value"
+                >
+                    —
+                </strong>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span class="stat-label">
+                    Critical Assets
+                </span>
+
+                <strong
+                    id="criticalAssets"
+                    class="stat-value"
+                >
+                    —
+                </strong>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span class="stat-label">
+                    High Risk Assets
+                </span>
+
+                <strong
+                    id="highAssets"
+                    class="stat-value"
+                >
+                    —
+                </strong>
+
+            </article>
+
+	    <article class="panel failed-login-panel">
+
+	        <div class="panel-header">
+
+	            <div>
+	                <h3>Failed Login Analyzer</h3>
+
+	                <p>
+	                    Automated authentication activity analysis
+	                </p>
+	            </div>
+
+	            <span
+	                id="failedLoginStatus"
+	                class="automation-status"
+	            >
+	                —
+	            </span>
+
+	        </div>
+
+
+	        <div class="automation-metrics">
+
+	            <div class="automation-metric">
+	                <span>Failed Login Attempts</span>
+	                <strong id="failedLoginAttempts">—</strong>
+	            </div>
+
+
+	            <div class="automation-metric">
+	                <span>Affected Assets</span>
+	                <strong id="failedLoginAssets">—</strong>
+	            </div>
+
+
+	            <div class="automation-metric">
+	                <span>Repeated Sources</span>
+	                <strong id="failedLoginRepeatedSources">—</strong>
+	            </div>
+
+
+	            <div class="automation-metric">
+	                <span>Suspicious Spikes</span>
+	                <strong id="failedLoginSpikes">—</strong>
+	            </div>
+
+	        </div>
+
+
+	        <div
+	            id="failedLoginFindings"
+	            class="automation-findings"
+	        ></div>
+
+	    </article>
+
+
+
+        </section>
+
+	<!-- SECURITY OPERATIONS SUMMARY -->
+
+	<section class="dashboard-summary-grid">
+
+	    <div class="dashboard-summary-card">
+	        <span class="summary-label">
+	            Vulnerabilities
+        	</span>
+
+       	 	<strong id="totalVulnerabilities">
+            		0
+        	</strong>
+
+	        <small>
+            		<span id="criticalVulnerabilities">0</span>
+            		Critical /
+            		<span id="highVulnerabilities">0</span>
+            		High
+       		 </small>
+    	    </div>
+
+
+	    <div class="dashboard-summary-card">
+        	<span class="summary-label">
+            	    Security Events
+        	</span>
+
+        	<strong id="totalSecurityEvents">
+            	    0
+        	</strong>
+
+	        <small>
+            	    <span id="criticalSecurityEvents">0</span>
+            	    Critical /
+            	    <span id="openSecurityEvents">0</span>
+            	    Open
+        	</small>
+    	    </div>
+
+
+	    <div class="dashboard-summary-card">
+        	<span class="summary-label">
+            	Alerts
+        	</span>
+
+	        <strong id="totalAlerts">
+            	    0
+        	</strong>
+
+	        <small>
+            	    <span id="criticalAlerts">0</span>
+            	    Critical /
+            	    <span id="newAlerts">0</span>
+            	    New
+        	</small>
+    	    </div>
+
+
+	    <div class="dashboard-summary-card">
+        	<span class="summary-label">
+            	    Incidents
+        	</span>
+
+	        <strong id="totalIncidents">
+            	    0
+        	</strong>
+
+	        <small>
+            	    <span id="criticalIncidents">0</span>
+            	    Critical /
+            	    <span id="openIncidents">0</span>
+            	    Open
+        	</small>
+	    </div>
+
+
+	    <div class="dashboard-summary-card">
+        	<span class="summary-label">
+            	    Risks
+        	</span>
+
+        	<strong id="totalRisks">
+            	    0
+        	</strong>
+
+	        <small>
+	            <span id="criticalRisks">0</span>
+	            Critical /
+	            <span id="openRisks">0</span>
+	            Open
+	        </small>
+	    </div>
+
+
+	    <div class="dashboard-summary-card">
+	        <span class="summary-label">
+	            Assessments
+	        </span>
+
+	        <strong id="totalAssessments">
+	            0
+	        </strong>
+
+	        <small>
+	            <span id="inProgressAssessments">0</span>
+	            In Progress /
+	            <span id="completedAssessments">0</span>
+	            Completed
+	        </small>
+	    </div>
+
+	</section>
+
+	<!-- AUTOMATION & SECURITY HEALTH -->
+
+	<section class="automation-dashboard-grid">
+
+	    <article class="panel automation-health-panel">
+
+	        <div class="panel-header">
+
+	            <div>
+	                <h3>Security Health</h3>
+
+	                <p>
+	                    Automated security posture assessment
+	                </p>
+	            </div>
+
+	            <span
+	                id="securityHealthStatus"
+	                class="automation-status"
+	            >
+	                —
+	            </span>
+
+	        </div>
+
+
+	        <div class="automation-metrics">
+
+		    <div class="automation-metric posture-score-metric">
+			<span>Security Posture Score</span>
+    			<strong id="securityPostureScore">—</strong>
+    			<small>/ 100</small>
+		    </div>
+
+	            <div class="automation-metric">
+	                <span>Monitored Assets</span>
+	                <strong id="healthAssets">—</strong>
+	            </div>
+
+
+	            <div class="automation-metric">
+	                <span>Critical Alerts</span>
+	                <strong id="healthCriticalAlerts">—</strong>
+	            </div>
+
+
+	            <div class="automation-metric">
+	                <span>High Alerts</span>
+	                <strong id="healthHighAlerts">—</strong>
+	            </div>
+
+
+	            <div class="automation-metric">
+	                <span>Open Incidents</span>
+	                <strong id="healthOpenIncidents">—</strong>
+	            </div>
+
+
+	            <div class="automation-metric">
+	                <span>Critical Incidents</span>
+	                <strong id="healthCriticalIncidents">—</strong>
+	            </div>
+
+
+	            <div class="automation-metric">
+	                <span>High/Critical Vulnerabilities</span>
+	                <strong id="healthHighVulnerabilities">—</strong>
+	            </div>
+
+	        </div>
+
+
+	        <div
+	            id="healthFindings"
+	            class="automation-findings"
+	        ></div>
+
+	    </article>
+
+
+	    <article class="panel integrity-panel">
+
+	        <div class="panel-header">
+
+	            <div>
+	                <h3>Automation & Integrity</h3>
+
+	                <p>
+	                    Latest automated control checks
+	                </p>
+	            </div>
+
+	        </div>
+
+
+	        <div class="integrity-status-row">
+
+	            <span>Health Check</span>
+
+	            <strong id="healthExecutionStatus">
+	                —
+	            </strong>
+
+	        </div>
+
+
+	        <div class="integrity-status-row">
+
+	            <span>Source Integrity</span>
+
+	            <strong id="integrityStatus">
+	                —
+	            </strong>
+
+	        </div>
+
+
+	        <div class="integrity-status-row">
+
+	            <span>Monitored Files</span>
+
+	            <strong id="integrityFileCount">
+	                —
+	            </strong>
+
+	        </div>
+
+
+	        <div class="integrity-status-row">
+
+	            <span>Modified Files</span>
+
+	            <strong id="integrityModifiedFiles">
+	                —
+	            </strong>
+
+	        </div>
+
+
+	        <div class="integrity-status-row">
+
+	            <span>Missing Files</span>
+
+	            <strong id="integrityMissingFiles">
+	                —
+</strong>
+
+	        </div>
+
+
+	        <div class="automation-actions">
+
+	            <a
+	                href="reports.html"
+	                class="dashboard-action-button"
+	            >
+	                View Reports
+	            </a>
+
+	        </div>
+
+	    </article>
+
+	</section>
+
+	<!-- SECURITY OVERVIEW -->
+
+        <section class="dashboard-grid">
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <h3>
+                        Asset Status
+                    </h3>
+
+                </div>
+
+
+                <div class="metric-list">
+
+                    <div class="metric-row">
+
+                        <span>
+                            Active
+                        </span>
+
+                        <strong
+                            id="activeStatus"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="metric-row">
+
+                        <span>
+                            Inactive
+                        </span>
+
+                        <strong
+                            id="inactiveStatus"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="metric-row">
+
+                        <span>
+                            Retired
+                        </span>
+
+                        <strong
+                            id="retiredStatus"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <h3>
+                        Criticality Distribution
+                    </h3>
+
+                </div>
+
+
+                <div class="metric-list">
+
+                    <div class="metric-row">
+
+                        <span>
+                            Critical
+                        </span>
+
+                        <strong
+                            id="criticalCount"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="metric-row">
+
+                        <span>
+                            High
+                        </span>
+
+                        <strong
+                            id="highCount"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="metric-row">
+
+                        <span>
+                            Medium
+                        </span>
+
+                        <strong
+                            id="mediumCount"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="metric-row">
+
+                        <span>
+                            Low
+                        </span>
+
+                        <strong
+                            id="lowCount"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+	<!-- ATTENTION REQUIRED -->
+
+	<section class="attention-card">
+
+	    <div class="attention-header">
+
+	        <div>
+	            <h3>Attention Required</h3>
+
+	            <p>
+	                Security items requiring analyst attention
+	            </p>
+	        </div>
+
+	        <span
+	            id="attentionCount"
+	            class="attention-count"
+	        >
+	            0
+	        </span>
+
+	    </div>
+
+
+	    <div
+	        id="attentionList"
+	        class="attention-list"
+	    >
+	
+	        <div class="attention-empty">
+	            Loading security items...
+	        </div>
+	
+	    </div>
+
+	</section>
+
+        <!-- CURRENT STATUS -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h3>
+                        Platform Status
+                    </h3>
+
+                    <p>
+                        Live SecureSphere backend status
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="platformStatus"
+                class="status-message"
+            >
+                Loading platform status...
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/dashboard.js"></script>
+
+</body>
+
+</html>

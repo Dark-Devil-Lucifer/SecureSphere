@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SecureSphere | Vulnerabilities</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/vulnerabilities.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h1>SecureSphere</h1>
+
+            <span>
+                Security Operations
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="assets.html"
+                class="nav-item"
+            >
+                Assets
+            </a>
+
+
+            <a
+                href="vulnerabilities.html"
+                class="nav-item active"
+            >
+                Vulnerabilities
+            </a>
+
+
+            <a href="security-events.html" class="nav-item">
+                Security Events
+            </a>
+
+
+            <a href="alerts.html" class="nav-item">
+                Alerts
+            </a>
+
+
+            <a href="incidents.html" class="nav-item">
+                Incidents
+            </a>
+
+
+            <a href="/app/pages/risk-assessment.html" class="nav-item">
+                Risk Assessment
+            </a>
+
+
+            <a href="/app/pages/assessments.html" class="nav-item">
+                Assessments
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    Vulnerability Management
+                </h2>
+
+                <p>
+                    Identify, track and remediate security vulnerabilities
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <span id="userName">
+                    User
+                </span>
+
+                <span
+                    id="userRole"
+                    class="role-badge"
+                >
+                    ROLE
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- SUMMARY -->
+
+        <section class="vulnerability-summary">
+
+            <div class="vulnerability-summary-card">
+
+                <span class="summary-label">
+                    Total
+                </span>
+
+                <strong id="totalCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="vulnerability-summary-card critical-card">
+
+                <span class="summary-label">
+                    Critical
+                </span>
+
+                <strong id="criticalCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="vulnerability-summary-card high-card">
+
+                <span class="summary-label">
+                    High
+                </span>
+
+                <strong id="highCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="vulnerability-summary-card medium-card">
+
+                <span class="summary-label">
+                    Medium
+                </span>
+
+                <strong id="mediumCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="vulnerability-summary-card low-card">
+
+                <span class="summary-label">
+                    Low
+                </span>
+
+                <strong id="lowCount">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- TOOLBAR -->
+
+        <section class="vulnerability-toolbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search vulnerability, title or category..."
+                >
+
+            </div>
+
+
+            <select id="severityFilter">
+
+                <option value="">
+                    All Severity
+                </option>
+
+                <option value="CRITICAL">
+                    Critical
+                </option>
+
+                <option value="HIGH">
+                    High
+                </option>
+
+                <option value="MEDIUM">
+                    Medium
+                </option>
+
+                <option value="LOW">
+                    Low
+                </option>
+
+                <option value="INFORMATIONAL">
+                    Informational
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="OPEN">
+                    Open
+                </option>
+
+                <option value="IN_PROGRESS">
+                    In Progress
+                </option>
+
+                <option value="RESOLVED">
+                    Resolved
+                </option>
+
+                <option value="CLOSED">
+                    Closed
+                </option>
+
+                <option value="ACCEPTED_RISK">
+                    Accepted Risk
+                </option>
+
+            </select>
+
+
+            <select id="assetFilter">
+
+                <option value="">
+                    All Assets
+                </option>
+
+            </select>
+
+
+            <button
+                id="addVulnerabilityButton"
+                class="primary-button"
+            >
+                + Add Vulnerability
+            </button>
+
+        </section>
+
+
+        <!-- TABLE -->
+
+        <section class="vulnerability-table-card">
+
+            <div class="table-heading">
+
+                <div>
+
+                    <h3>
+                        Vulnerabilities
+                    </h3>
+
+                    <span id="vulnerabilityCount">
+                        0 vulnerabilities found
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Title
+                            </th>
+
+                            <th>
+                                Asset
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Risk
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="vulnerabilityTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="empty-state"
+                            >
+                                Loading vulnerabilities...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- DETAILS MODAL -->
+
+<div
+    id="detailsModal"
+    class="modal-overlay hidden"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h3 id="detailsTitle">
+                    Vulnerability Details
+                </h3>
+
+                <span id="detailsVulnerabilityId">
+                </span>
+
+            </div>
+
+
+            <button
+                id="closeDetailsButton"
+                class="modal-close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="detailsContent"
+            class="modal-body"
+        >
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CREATE MODAL -->
+
+<div
+    id="createModal"
+    class="modal-overlay hidden"
+>
+
+    <div class="modal vulnerability-form-modal">
+
+        <div class="modal-header">
+
+            <h3>
+                Add Vulnerability
+            </h3>
+
+
+            <button
+                id="closeCreateButton"
+                class="modal-close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="vulnerabilityForm"
+            class="modal-body"
+        >
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Vulnerability ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="vulnerabilityId"
+                        placeholder="VULN-2026-002"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Asset
+                    </label>
+
+                    <select
+                        id="vulnerabilityAsset"
+                        required
+                    >
+
+                        <option value="">
+                            Select asset
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group form-full">
+
+                    <label>
+                        Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="vulnerabilityTitle"
+                        placeholder="Enter vulnerability title"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <input
+                        type="text"
+                        id="vulnerabilityCategory"
+                        placeholder="OUTDATED_SOFTWARE"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Severity
+                    </label>
+
+                    <select
+                        id="vulnerabilitySeverity"
+                        required
+                    >
+
+                        <option value="">
+                            Select severity
+                        </option>
+
+                        <option value="CRITICAL">
+                            Critical
+                        </option>
+
+                        <option value="HIGH">
+                            High
+                        </option>
+
+                        <option value="MEDIUM">
+                            Medium
+                        </option>
+
+                        <option value="LOW">
+                            Low
+                        </option>
+
+                        <option value="INFORMATIONAL">
+                            Informational
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Risk Level
+                    </label>
+
+                    <select
+                        id="vulnerabilityRisk"
+                        required
+                    >
+
+                        <option value="">
+                            Select risk
+                        </option>
+
+                        <option value="CRITICAL">
+                            Critical
+                        </option>
+
+                        <option value="HIGH">
+                            High
+                        </option>
+
+                        <option value="MEDIUM">
+                            Medium
+                        </option>
+
+                        <option value="LOW">
+                            Low
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group form-full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="vulnerabilityDescription"
+                        rows="4"
+                        placeholder="Describe the vulnerability..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group form-full">
+
+                    <label>
+                        Evidence
+                    </label>
+
+                    <textarea
+                        id="vulnerabilityEvidence"
+                        rows="4"
+                        placeholder="Enter evidence or findings..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group form-full">
+
+                    <label>
+                        Remediation
+                    </label>
+
+                    <textarea
+                        id="vulnerabilityRemediation"
+                        rows="4"
+                        placeholder="Enter recommended remediation..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="formError"
+                class="form-error hidden"
+            >
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelButton"
+                    class="secondary-button"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Create Vulnerability
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/vulnerabilities.js"></script>
+
+</body>
+
+</html>

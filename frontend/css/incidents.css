@@ -1,0 +1,447 @@
+/* =========================================================
+   SecureSphere - Incident Management
+   ========================================================= */
+
+/* ---------- Toolbar ---------- */
+
+.incident-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.incident-toolbar .search-box {
+    flex: 1;
+    min-width: 260px;
+}
+
+.incident-toolbar .search-box input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #111b2e;
+    color: #e2e8f0;
+    font-size: 14px;
+    outline: none;
+}
+
+.incident-toolbar .search-box input::placeholder {
+    color: #64748b;
+}
+
+.incident-toolbar .search-box input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.incident-toolbar select {
+    height: 42px;
+    min-width: 145px;
+    padding: 0 12px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #111b2e;
+    color: #e2e8f0;
+    font-size: 14px;
+    outline: none;
+}
+
+.incident-toolbar select:focus {
+    border-color: #3b82f6;
+}
+
+.record-count {
+    color: #94a3b8;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+
+/* ---------- Incident Table Card ---------- */
+
+.incident-table-card {
+    background: #111b2e;
+    border: 1px solid #24324a;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+
+.table-header {
+    padding: 20px 22px;
+    border-bottom: 1px solid #24324a;
+}
+
+.table-header h3 {
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.table-header p {
+    margin: 6px 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+
+/* ---------- Table ---------- */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.incident-table-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.incident-table-card th {
+    padding: 14px 16px;
+    background: #0d1627;
+    border-bottom: 1px solid #24324a;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.incident-table-card td {
+    padding: 16px;
+    border-bottom: 1px solid #1e293b;
+    color: #cbd5e1;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.incident-table-card tbody tr {
+    transition: background 0.15s ease;
+}
+
+.incident-table-card tbody tr:hover {
+    background: #172235;
+}
+
+.incident-table-card tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* ---------- Empty State ---------- */
+
+.incident-table-card .empty-state {
+    padding: 35px;
+    text-align: center;
+    color: #64748b;
+}
+
+
+/* ---------- Incident ID ---------- */
+
+.incident-table-card td:first-child {
+    color: #60a5fa;
+    font-weight: 700;
+}
+
+
+/* ---------- Title ---------- */
+
+.incident-table-card td:nth-child(2) {
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+
+/* ---------- Badges ---------- */
+
+.severity-badge,
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 72px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* Severity */
+
+.severity-critical {
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.severity-high {
+    color: #fdba74;
+    background: rgba(249, 115, 22, 0.15);
+    border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.severity-medium {
+    color: #fde68a;
+    background: rgba(234, 179, 8, 0.15);
+    border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.severity-low {
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.severity-informational {
+    color: #cbd5e1;
+    background: rgba(148, 163, 184, 0.12);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+
+/* Status */
+
+.status-open {
+    color: #93c5fd;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.status-investigating {
+    color: #c4b5fd;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.status-contained {
+    color: #fde68a;
+    background: rgba(234, 179, 8, 0.15);
+    border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.status-resolved {
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.status-closed {
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+
+/* ---------- Action Button ---------- */
+
+.incident-table-card button {
+    padding: 7px 12px;
+    border: 1px solid #334155;
+    border-radius: 7px;
+    background: #18243a;
+    color: #e2e8f0;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.incident-table-card button:hover {
+    background: #243553;
+    border-color: #475569;
+}
+
+
+/* =========================================================
+   Incident Details
+   ========================================================= */
+
+.incident-details-card {
+    background: #111b2e;
+    border: 1px solid #24324a;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.incident-details-card.hidden {
+    display: none;
+}
+
+
+/* ---------- Details Header ---------- */
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 22px;
+    border-bottom: 1px solid #24324a;
+}
+
+.details-header h3 {
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 19px;
+}
+
+.details-header p {
+    margin: 6px 0 0;
+    color: #60a5fa;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.details-header .secondary-button {
+    padding: 8px 14px;
+    border: 1px solid #334155;
+    border-radius: 7px;
+    background: #18243a;
+    color: #cbd5e1;
+    cursor: pointer;
+}
+
+.details-header .secondary-button:hover {
+    background: #243553;
+}
+
+
+/* ---------- Summary ---------- */
+
+.incident-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    padding: 20px 22px;
+    border-bottom: 1px solid #24324a;
+}
+
+.summary-item {
+    padding: 14px;
+    border: 1px solid #24324a;
+    border-radius: 9px;
+    background: #0d1627;
+}
+
+.summary-item span {
+    display: block;
+    margin-bottom: 6px;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.summary-item strong {
+    color: #e2e8f0;
+    font-size: 14px;
+}
+
+
+/* ---------- Investigation ---------- */
+
+.incident-details-card > h4,
+.incident-details-card h4 {
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 15px;
+}
+
+
+/* Form labels */
+
+.incident-details-card label {
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* Textareas */
+
+.incident-details-card textarea {
+    width: 100%;
+    min-height: 105px;
+    padding: 11px 12px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #0d1627;
+    color: #e2e8f0;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+}
+
+.incident-details-card textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.12);
+}
+
+
+/* Select */
+
+.incident-details-card select {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #0d1627;
+    color: #e2e8f0;
+}
+
+
+/* Buttons */
+
+.incident-details-card button {
+    padding: 9px 15px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+
+    .incident-toolbar {
+        align-items: stretch;
+    }
+
+    .incident-toolbar .search-box {
+        min-width: 100%;
+    }
+
+    .incident-toolbar select {
+        flex: 1;
+    }
+
+    .incident-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .incident-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .details-header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+}

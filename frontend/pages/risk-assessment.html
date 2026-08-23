@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SecureSphere | Risk Assessment</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/risk-assessment.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h1>SecureSphere</h1>
+
+            <span>
+                Security Operations
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="assets.html"
+                class="nav-item"
+            >
+                Assets
+            </a>
+
+
+            <a
+                href="vulnerabilities.html"
+                class="nav-item"
+            >
+                Vulnerabilities
+            </a>
+
+
+            <a
+                href="security-events.html"
+                class="nav-item"
+            >
+                Security Events
+            </a>
+
+
+            <a
+                href="alerts.html"
+                class="nav-item"
+            >
+                Alerts
+            </a>
+
+
+            <a
+                href="incidents.html"
+                class="nav-item"
+            >
+                Incidents
+            </a>
+
+
+	    <a
+    		href="/app/pages/risk-assessment.html"
+    		class="nav-item"
+	    >
+    		Risk Assessment
+	    </a>
+
+	    <a
+    		href="/app/pages/assessments.html"
+    		class="nav-item"
+	    >
+    		Assessments
+	    </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                Reports
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    Risk Assessment
+                </h2>
+
+                <p>
+                    Identify, evaluate and manage security risks
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <span id="userName">
+                    User
+                </span>
+
+                <span
+                    id="userRole"
+                    class="role-badge"
+                >
+                    ROLE
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- SUMMARY -->
+
+        <section class="risk-summary">
+
+            <div class="risk-summary-card total-card">
+
+                <span class="summary-label">
+                    Total Risks
+                </span>
+
+                <strong id="totalRisks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="risk-summary-card critical-card">
+
+                <span class="summary-label">
+                    Critical
+                </span>
+
+                <strong id="criticalRisks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="risk-summary-card high-card">
+
+                <span class="summary-label">
+                    High
+                </span>
+
+                <strong id="highRisks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="risk-summary-card medium-card">
+
+                <span class="summary-label">
+                    Medium
+                </span>
+
+                <strong id="mediumRisks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="risk-summary-card low-card">
+
+                <span class="summary-label">
+                    Low
+                </span>
+
+                <strong id="lowRisks">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- TOOLBAR -->
+
+        <section class="risk-toolbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search risk, threat or vulnerability..."
+                >
+
+            </div>
+
+
+            <select id="riskLevelFilter">
+
+                <option value="">
+                    All Risk Levels
+                </option>
+
+                <option value="CRITICAL">
+                    Critical
+                </option>
+
+                <option value="HIGH">
+                    High
+                </option>
+
+                <option value="MEDIUM">
+                    Medium
+                </option>
+
+                <option value="LOW">
+                    Low
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="OPEN">
+                    Open
+                </option>
+
+                <option value="MITIGATED">
+                    Mitigated
+                </option>
+
+                <option value="ACCEPTED">
+                    Accepted
+                </option>
+
+                <option value="CLOSED">
+                    Closed
+                </option>
+
+            </select>
+
+
+            <span
+                id="riskCount"
+                class="record-count"
+            >
+                0 risks
+            </span>
+
+        </section>
+
+
+        <!-- TABLE -->
+
+        <section class="risk-table-card">
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Risk Register
+                    </h3>
+
+                    <p>
+                        Security risks identified across registered assets
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Risk
+                            </th>
+
+                            <th>
+                                Threat
+                            </th>
+
+                            <th>
+                                Asset
+                            </th>
+
+                            <th>
+                                Likelihood
+                            </th>
+
+                            <th>
+                                Impact
+                            </th>
+
+                            <th>
+                                Score
+                            </th>
+
+                            <th>
+                                Risk Level
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="riskTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="9"
+                                class="empty-state"
+                            >
+                                Loading risks...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- DETAILS -->
+
+        <section
+            id="riskDetails"
+            class="risk-details-card hidden"
+        >
+
+            <div class="details-header">
+
+                <div>
+
+                    <h3 id="detailsTitle">
+                        Risk Details
+                    </h3>
+
+                    <p id="detailsRiskId">
+                        -
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="closeDetailsButton"
+                    class="secondary-button"
+                >
+                    Close
+                </button>
+
+            </div>
+
+
+            <div class="risk-detail-grid">
+
+                <div class="detail-item">
+
+                    <span>
+                        Risk Level
+                    </span>
+
+                    <strong id="detailsRiskLevel">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Risk Score
+                    </span>
+
+                    <strong id="detailsRiskScore">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Likelihood
+                    </span>
+
+                    <strong id="detailsLikelihood">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Impact
+                    </span>
+
+                    <strong id="detailsImpact">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Asset ID
+                    </span>
+
+                    <strong id="detailsAsset">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Vulnerability ID
+                    </span>
+
+                    <strong id="detailsVulnerability">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <select id="detailsStatus">
+
+                        <option value="OPEN">
+                            Open
+                        </option>
+
+                        <option value="MITIGATED">
+                            Mitigated
+                        </option>
+
+                        <option value="ACCEPTED">
+                            Accepted
+                        </option>
+
+                        <option value="CLOSED">
+                            Closed
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-section">
+
+                <h4>
+                    Threat
+                </h4>
+
+                <p id="detailsThreat">
+                    -
+                </p>
+
+            </div>
+
+
+            <div class="detail-section">
+
+                <h4>
+                    Vulnerability
+                </h4>
+
+                <p id="detailsVulnerabilityText">
+                    -
+                </p>
+
+            </div>
+
+
+            <div class="detail-section">
+
+                <h4>
+                    Mitigation
+                </h4>
+
+                <p id="detailsMitigation">
+                    -
+                </p>
+
+            </div>
+
+
+            <button
+                id="updateStatusButton"
+                class="primary-button"
+            >
+                Update Status
+            </button>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/risk-assessment.js"></script>
+
+</body>
+
+</html>

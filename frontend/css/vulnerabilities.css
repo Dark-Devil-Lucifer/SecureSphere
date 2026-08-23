@@ -1,0 +1,1205 @@
+/* =========================================================
+   SECURESPHERE - VULNERABILITY MANAGEMENT
+   Dark SOC Dashboard
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE SUMMARY CARDS
+   ========================================================= */
+
+.vulnerability-summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 26px;
+
+}
+
+
+.vulnerability-summary-card {
+
+    position: relative;
+
+    min-height: 118px;
+
+    box-sizing: border-box;
+
+    padding: 20px 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111b2f,
+            #0d1628
+        );
+
+    border: 1px solid #24324a;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.18);
+
+}
+
+
+/* Colored left border */
+
+.vulnerability-summary-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    bottom: 0;
+
+    width: 4px;
+
+    background: #3b82f6;
+
+}
+
+
+/* Card text */
+
+.vulnerability-summary-card .summary-label {
+
+    color: #a8b3c7;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+}
+
+
+.vulnerability-summary-card strong {
+
+    color: #f8fafc;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+}
+
+
+/* Total */
+
+.vulnerability-summary-card:first-child::before {
+
+    background: #3b82f6;
+
+}
+
+
+/* Critical */
+
+.critical-card::before {
+
+    background: #ef4444 !important;
+
+}
+
+
+/* High */
+
+.high-card::before {
+
+    background: #f97316 !important;
+
+}
+
+
+/* Medium */
+
+.medium-card::before {
+
+    background: #facc15 !important;
+
+}
+
+
+/* Low */
+
+.low-card::before {
+
+    background: #22c55e !important;
+
+}
+
+
+/* Number colors */
+
+.critical-card strong {
+
+    color: #ef4444;
+
+}
+
+
+.high-card strong {
+
+    color: #fb923c;
+
+}
+
+
+.medium-card strong {
+
+    color: #facc15;
+
+}
+
+
+.low-card strong {
+
+    color: #22c55e;
+
+}
+
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.vulnerability-toolbar {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* Search */
+
+.vulnerability-toolbar .search-box {
+
+    flex: 1;
+
+    min-width: 300px;
+
+}
+
+
+.vulnerability-toolbar .search-box input {
+
+    width: 100%;
+
+    height: 44px;
+
+    box-sizing: border-box;
+
+    padding: 0 15px;
+
+    background: #0f192c;
+
+    color: #e5e7eb;
+
+    border: 1px solid #334155;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+}
+
+
+.vulnerability-toolbar .search-box input::placeholder {
+
+    color: #7d8aa3;
+
+}
+
+
+.vulnerability-toolbar .search-box input:focus {
+
+    outline: none;
+
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 2px rgba(59, 130, 246, 0.15);
+
+}
+
+
+/* Select boxes */
+
+.vulnerability-toolbar select {
+
+    height: 44px;
+
+    min-width: 155px;
+
+    padding: 0 13px;
+
+    background: #0f192c;
+
+    color: #dbe4f0;
+
+    border: 1px solid #334155;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+}
+
+
+.vulnerability-toolbar select:hover {
+
+    border-color: #4b6080;
+
+}
+
+
+.vulnerability-toolbar select:focus {
+
+    outline: none;
+
+    border-color: #3b82f6;
+
+}
+
+
+/* Add button */
+
+.vulnerability-toolbar .primary-button {
+
+    height: 44px;
+
+    padding: 0 18px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #3b82f6;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.vulnerability-toolbar .primary-button:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =========================================================
+   TABLE CONTAINER
+   ========================================================= */
+
+.vulnerability-table-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            #101a2d,
+            #0d1728
+        );
+
+    border: 1px solid #263650;
+
+    border-radius: 11px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.18);
+
+}
+
+
+/* Header */
+
+.table-heading {
+
+    padding: 21px 22px;
+
+    background: #111c30;
+
+    border-bottom: 1px solid #27364e;
+
+}
+
+
+.table-heading h3 {
+
+    margin: 0 0 6px;
+
+    color: #e8eef7;
+
+    font-size: 19px;
+
+    font-weight: 650;
+
+}
+
+
+.table-heading span {
+
+    color: #8997ad;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+.vulnerability-table-card table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    color: #dbe4f0;
+
+}
+
+
+/* Header row */
+
+.vulnerability-table-card thead {
+
+    background: #111b2d;
+
+}
+
+
+.vulnerability-table-card th {
+
+    padding: 14px 16px;
+
+    color: #8290a7;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    text-transform: none;
+
+    border-bottom: 1px solid #27364e;
+
+    white-space: nowrap;
+
+}
+
+
+/* Body */
+
+.vulnerability-table-card td {
+
+    padding: 17px 16px;
+
+    color: #d5deea;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #202e45;
+
+    vertical-align: middle;
+
+}
+
+
+.vulnerability-table-card tbody tr {
+
+    background: transparent;
+
+    transition:
+        background 0.15s ease;
+
+}
+
+
+.vulnerability-table-card tbody tr:hover {
+
+    background: #142239;
+
+}
+
+
+/* Strong title */
+
+.vulnerability-table-card td strong {
+
+    color: #edf3fb;
+
+    font-weight: 600;
+
+}
+
+
+/* Vulnerability ID */
+
+.vulnerability-table-card td:first-child {
+
+    color: #3b9cff;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.vulnerability-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 48px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.2px;
+
+    white-space: nowrap;
+
+}
+
+
+/* Critical */
+
+.severity-critical {
+
+    background: rgba(239, 68, 68, 0.16);
+
+    color: #ff6262;
+
+    border: 1px solid rgba(239, 68, 68, 0.25);
+
+}
+
+
+/* High */
+
+.severity-high {
+
+    background: rgba(249, 115, 22, 0.16);
+
+    color: #fb923c;
+
+    border: 1px solid rgba(249, 115, 22, 0.25);
+
+}
+
+
+/* Medium */
+
+.severity-medium {
+
+    background: rgba(250, 204, 21, 0.14);
+
+    color: #facc15;
+
+    border: 1px solid rgba(250, 204, 21, 0.22);
+
+}
+
+
+/* Low */
+
+.severity-low {
+
+    background: rgba(34, 197, 94, 0.14);
+
+    color: #4ade80;
+
+    border: 1px solid rgba(34, 197, 94, 0.22);
+
+}
+
+
+/* Informational */
+
+.severity-informational {
+
+    background: rgba(56, 189, 248, 0.14);
+
+    color: #38bdf8;
+
+    border: 1px solid rgba(56, 189, 248, 0.22);
+
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.status-open {
+
+    background: rgba(239, 68, 68, 0.15);
+
+    color: #ff6262;
+
+    border: 1px solid rgba(239, 68, 68, 0.22);
+
+}
+
+
+.status-in-progress {
+
+    background: rgba(250, 204, 21, 0.14);
+
+    color: #facc15;
+
+    border: 1px solid rgba(250, 204, 21, 0.22);
+
+}
+
+
+.status-resolved {
+
+    background: rgba(34, 197, 94, 0.14);
+
+    color: #4ade80;
+
+    border: 1px solid rgba(34, 197, 94, 0.22);
+
+}
+
+
+.status-closed {
+
+    background: rgba(148, 163, 184, 0.14);
+
+    color: #cbd5e1;
+
+    border: 1px solid rgba(148, 163, 184, 0.22);
+
+}
+
+
+.status-accepted-risk {
+
+    background: rgba(99, 102, 241, 0.15);
+
+    color: #a5b4fc;
+
+    border: 1px solid rgba(99, 102, 241, 0.22);
+
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.action-group {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.view-button,
+.action-button {
+
+    height: 34px;
+
+    padding: 0 12px;
+
+    background: transparent;
+
+    color: #dbe4f0;
+
+    border: 1px solid #52627a;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+.view-button:hover {
+
+    background: #1a2940;
+
+    border-color: #7b8da8;
+
+    color: #ffffff;
+
+}
+
+
+.action-button {
+
+    color: #60a5fa;
+
+    border-color: #2563eb;
+
+}
+
+
+.action-button:hover {
+
+    background: rgba(37, 99, 235, 0.15);
+
+    border-color: #3b82f6;
+
+}
+
+
+/* =========================================================
+   EMPTY / LOADING
+   ========================================================= */
+
+.vulnerability-table-card .empty-state {
+
+    padding: 45px 20px;
+
+    color: #7f8da4;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(2, 8, 23, 0.78);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 1000;
+
+    backdrop-filter: blur(4px);
+
+}
+
+
+.modal-overlay.hidden {
+
+    display: none;
+
+}
+
+
+.modal {
+
+    width: min(820px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111c30,
+            #0c1628
+        );
+
+    color: #dbe4f0;
+
+    border: 1px solid #30415c;
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.55);
+
+}
+
+
+/* Modal header */
+
+.modal-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    padding: 21px 22px;
+
+    background: #111c30;
+
+    border-bottom: 1px solid #2a3a54;
+
+}
+
+
+.modal-header h3 {
+
+    margin: 0 0 5px;
+
+    color: #f1f5f9;
+
+    font-size: 18px;
+
+}
+
+
+.modal-header span {
+
+    color: #8090a8;
+
+    font-size: 12px;
+
+}
+
+
+.modal-close {
+
+    border: none;
+
+    background: transparent;
+
+    color: #8b9ab0;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+    line-height: 1;
+
+}
+
+
+.modal-close:hover {
+
+    color: #ffffff;
+
+}
+
+
+/* Modal body */
+
+.modal-body {
+
+    padding: 22px;
+
+}
+
+
+/* =========================================================
+   DETAILS
+   ========================================================= */
+
+.details-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+
+}
+
+
+.details-item {
+
+    padding: 14px;
+
+    background: #0c1729;
+
+    border: 1px solid #24344e;
+
+    border-radius: 7px;
+
+}
+
+
+.details-full {
+
+    grid-column: 1 / -1;
+
+}
+
+
+.details-label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #7f8da4;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+}
+
+
+.details-value {
+
+    color: #e2e8f0;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 17px;
+
+}
+
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+.form-full {
+
+    grid-column: 1 / -1;
+
+}
+
+
+.form-group label {
+
+    color: #aab6c8;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    background: #0b1628;
+
+    color: #e5e7eb;
+
+    border: 1px solid #34445e;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+    color: #68778e;
+
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    outline: none;
+
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(59, 130, 246, 0.13);
+
+}
+
+
+.form-group textarea {
+
+    resize: vertical;
+
+}
+
+
+.form-error {
+
+    margin-top: 16px;
+
+    padding: 11px 13px;
+
+    background: rgba(239, 68, 68, 0.12);
+
+    color: #ff7b7b;
+
+    border: 1px solid rgba(239, 68, 68, 0.25);
+
+    border-radius: 7px;
+
+    font-size: 13px;
+
+}
+
+
+.form-error.hidden {
+
+    display: none;
+
+}
+
+
+/* Modal buttons */
+
+.modal-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+}
+
+
+.secondary-button {
+
+    height: 40px;
+
+    padding: 0 16px;
+
+    background: transparent;
+
+    color: #cbd5e1;
+
+    border: 1px solid #4b5c75;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+}
+
+
+.secondary-button:hover {
+
+    background: #17243a;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .vulnerability-summary {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .vulnerability-summary {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .vulnerability-toolbar {
+
+        align-items: stretch;
+
+    }
+
+
+    .vulnerability-toolbar .search-box {
+
+        min-width: 100%;
+
+    }
+
+
+    .vulnerability-toolbar select,
+    .vulnerability-toolbar .primary-button {
+
+        flex: 1;
+
+    }
+
+
+    .form-grid,
+    .details-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .form-full,
+    .details-full {
+
+        grid-column: auto;
+
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .vulnerability-summary {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .vulnerability-toolbar {
+
+        flex-direction: column;
+
+    }
+
+
+    .vulnerability-toolbar select,
+    .vulnerability-toolbar .primary-button {
+
+        width: 100%;
+
+    }
+
+}

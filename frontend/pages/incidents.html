@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SecureSphere | Incidents</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/incidents.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h1>SecureSphere</h1>
+
+            <span>
+                Security Operations
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="assets.html"
+                class="nav-item"
+            >
+                Assets
+            </a>
+
+
+            <a
+                href="vulnerabilities.html"
+                class="nav-item"
+            >
+                Vulnerabilities
+            </a>
+
+
+            <a
+                href="/app/pages/security-events.html"
+                class="nav-item"
+            >
+                Security Events
+            </a>
+
+
+            <a
+                href="/app/pages/alerts.html"
+                class="nav-item"
+            >
+                Alerts
+            </a>
+
+
+            <a
+                href="/app/pages/incidents.html"
+                class="nav-item active"
+            >
+                Incidents
+            </a>
+
+
+            <a
+                href="/app/pages/risk-assessment.html"
+                class="nav-item"
+            >
+                Risk Assessment
+            </a>
+
+
+            <a
+                href="/app/pages/assessments.html"
+                class="nav-item"
+            >
+                Assessments
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    Incident Management
+                </h2>
+
+                <p>
+                    Investigate, contain and resolve security incidents
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <span id="userName">
+                    User
+                </span>
+
+                <span
+                    id="userRole"
+                    class="role-badge"
+                >
+                    ROLE
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- TOOLBAR -->
+
+        <section class="incident-toolbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search incident or title..."
+                >
+
+            </div>
+
+
+            <select id="severityFilter">
+
+                <option value="">
+                    All Severity
+                </option>
+
+                <option value="CRITICAL">
+                    Critical
+                </option>
+
+                <option value="HIGH">
+                    High
+                </option>
+
+                <option value="MEDIUM">
+                    Medium
+                </option>
+
+                <option value="LOW">
+                    Low
+                </option>
+
+                <option value="INFORMATIONAL">
+                    Informational
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="OPEN">
+                    Open
+                </option>
+
+                <option value="INVESTIGATING">
+                    Investigating
+                </option>
+
+                <option value="CONTAINED">
+                    Contained
+                </option>
+
+                <option value="RESOLVED">
+                    Resolved
+                </option>
+
+                <option value="CLOSED">
+                    Closed
+                </option>
+
+            </select>
+
+
+            <span
+                id="incidentCount"
+                class="record-count"
+            >
+                0 incidents
+            </span>
+
+        </section>
+
+
+        <!-- INCIDENT TABLE -->
+
+        <section class="incident-table-card">
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Security Incidents
+                    </h3>
+
+                    <p>
+                        Active and historical incident investigations
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Incident
+                            </th>
+
+                            <th>
+                                Title
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Asset
+                            </th>
+
+                            <th>
+                                Detected
+                            </th>
+
+                            <th>
+                                Analyst
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="incidentTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="empty-state"
+                            >
+                                Loading incidents...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- INCIDENT DETAILS -->
+
+        <section
+            id="incidentDetails"
+            class="incident-details-card hidden"
+        >
+
+            <div class="details-header">
+
+                <div>
+
+                    <h3 id="detailsTitle">
+                        Incident Details
+                    </h3>
+
+                    <p id="detailsIncidentId">
+                        -
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="closeDetailsButton"
+                    class="secondary-button"
+                >
+                    Close
+                </button>
+
+            </div>
+
+
+            <div class="incident-summary-grid">
+
+                <div class="summary-item">
+
+                    <span>
+                        Severity
+                    </span>
+
+                    <strong id="detailsSeverity">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong id="detailsStatus">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Asset ID
+                    </span>
+
+                    <strong id="detailsAsset">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Alert ID
+                    </span>
+
+                    <strong id="detailsAlert">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Assigned Analyst
+                    </span>
+
+                    <strong id="detailsAnalyst">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Detection Time
+                    </span>
+
+                    <strong id="detailsDetection">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="investigation-section">
+
+                <h4>
+                    Investigation
+                </h4>
+
+
+                <div class="detail-field">
+
+                    <label>
+                        Investigation Notes
+                    </label>
+
+                    <textarea
+                        id="investigationNotes"
+                        rows="4"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="detail-field">
+
+                    <label>
+                        Evidence
+                    </label>
+
+                    <textarea
+                        id="evidence"
+                        rows="4"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="detail-field">
+
+                    <label>
+                        Root Cause
+                    </label>
+
+                    <textarea
+                        id="rootCause"
+                        rows="4"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="detail-field">
+
+                    <label>
+                        Containment Action
+                    </label>
+
+                    <textarea
+                        id="containmentAction"
+                        rows="4"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="detail-field">
+
+                    <label>
+                        Resolution
+                    </label>
+
+                    <textarea
+                        id="resolution"
+                        rows="4"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="detail-field">
+
+                    <label>
+                        Preventive Action
+                    </label>
+
+                    <textarea
+                        id="preventiveAction"
+                        rows="4"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="incident-actions">
+
+                    <select id="incidentStatus">
+
+                        <option value="OPEN">
+                            Open
+                        </option>
+
+                        <option value="INVESTIGATING">
+                            Investigating
+                        </option>
+
+                        <option value="CONTAINED">
+                            Contained
+                        </option>
+
+                        <option value="RESOLVED">
+                            Resolved
+                        </option>
+
+                        <option value="CLOSED">
+                            Closed
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        id="saveIncidentButton"
+                        class="primary-button"
+                    >
+                        Save Investigation
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TIMELINE -->
+
+            <div class="timeline-section">
+
+                <div class="timeline-header">
+
+                    <div>
+
+                        <h4>
+                            Investigation Timeline
+                        </h4>
+
+                        <p>
+                            Recorded actions and investigation activity
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="timelineContainer"
+                    class="timeline"
+                >
+
+                    <div class="empty-state">
+                        Loading timeline...
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-entry-form">
+
+                    <h4>
+                        Add Timeline Entry
+                    </h4>
+
+
+                    <input
+                        type="text"
+                        id="timelineAction"
+                        placeholder="Action, e.g. Evidence Collected"
+                    >
+
+
+                    <textarea
+                        id="timelineDescription"
+                        rows="3"
+                        placeholder="Describe the action..."
+                    ></textarea>
+
+
+                    <button
+                        id="addTimelineButton"
+                        class="secondary-button"
+                    >
+                        Add Timeline Entry
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+
+<script src="../js/auth.js"></script>
+
+<script src="../js/incidents.js"></script>
+
+</body>
+
+</html>

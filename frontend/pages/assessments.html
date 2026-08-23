@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SecureSphere | Assessments</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/assessments.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h1>SecureSphere</h1>
+
+            <span>
+                Security Operations
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="assets.html"
+                class="nav-item"
+            >
+                Assets
+            </a>
+
+
+            <a
+                href="vulnerabilities.html"
+                class="nav-item"
+            >
+                Vulnerabilities
+            </a>
+
+
+            <a
+                href="/app/pages/security-events.html"
+                class="nav-item"
+            >
+                Security Events
+            </a>
+
+
+            <a
+                href="/app/pages/alerts.html"
+                class="nav-item"
+            >
+                Alerts
+            </a>
+
+
+            <a
+                href="/app/pages/incidents.html"
+                class="nav-item"
+            >
+                Incidents
+            </a>
+
+
+            <a
+                href="/app/pages/risk-assessment.html"
+                class="nav-item"
+            >
+                Risk Assessment
+            </a>
+
+
+            <a
+                href="/app/pages/assessments.html"
+                class="nav-item active"
+            >
+                Assessments
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                Reports
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    Security Assessments
+                </h2>
+
+                <p>
+                    Plan, track and manage security assessments
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <span id="userName">
+                    User
+                </span>
+
+                <span
+                    id="userRole"
+                    class="role-badge"
+                >
+                    ROLE
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <section class="assessment-toolbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search assessment type..."
+                >
+
+            </div>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="PLANNED">
+                    Planned
+                </option>
+
+                <option value="IN_PROGRESS">
+                    In Progress
+                </option>
+
+                <option value="COMPLETED">
+                    Completed
+                </option>
+
+                <option value="CANCELLED">
+                    Cancelled
+                </option>
+
+            </select>
+
+
+            <span
+                id="assessmentCount"
+                class="record-count"
+            >
+                0 assessments
+            </span>
+
+        </section>
+
+
+        <section class="assessment-table-card">
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Security Assessments
+                    </h3>
+
+                    <p>
+                        Planned and completed security assessment activities
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Asset
+                            </th>
+
+                            <th>
+                                Assessment Type
+                            </th>
+
+                            <th>
+                                Performed By
+                            </th>
+
+                            <th>
+                                Assessment Date
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="assessmentTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty-state"
+                            >
+                                Loading assessments...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="assessmentDetails"
+            class="assessment-details-card hidden"
+        >
+
+            <div class="details-header">
+
+                <div>
+
+                    <h3 id="detailsTitle">
+                        Assessment Details
+                    </h3>
+
+                    <p id="detailsAssessmentId">
+                        -
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="closeDetailsButton"
+                    class="secondary-button"
+                >
+                    Close
+                </button>
+
+            </div>
+
+
+            <div class="assessment-summary-grid">
+
+                <div class="summary-item">
+
+                    <span>
+                        Asset
+                    </span>
+
+                    <strong id="detailsAsset">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Assessment Type
+                    </span>
+
+                    <strong id="detailsType">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Performed By
+                    </span>
+
+                    <strong id="detailsPerformedBy">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Assessment Date
+                    </span>
+
+                    <strong id="detailsDate">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="assessment-detail-section">
+
+                <label>
+                    Summary
+                </label>
+
+                <div
+                    id="detailsSummary"
+                    class="detail-text"
+                >
+                    -
+                </div>
+
+            </div>
+
+            <div class="assessment-findings-section">
+
+                <div class="findings-header">
+
+                    <div>
+                        <h4>
+                            Findings
+                        </h4>
+
+                        <span
+                            id="detailsFindingsCount"
+                            class="findings-count"
+                        >
+                            0 findings
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="detailsFindings"
+                    class="assessment-findings-list"
+                >
+
+                    <div class="findings-empty">
+                        No findings linked to this assessment.
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="assessment-status-section">
+
+                <label for="detailsStatus">
+                    Status
+                </label>
+
+                <select id="detailsStatus">
+
+                    <option value="PLANNED">
+                        Planned
+                    </option>
+
+                    <option value="IN_PROGRESS">
+                        In Progress
+                    </option>
+
+                    <option value="COMPLETED">
+                        Completed
+                    </option>
+
+                    <option value="CANCELLED">
+                        Cancelled
+                    </option>
+
+                </select>
+
+
+                <button
+                    id="updateStatusButton"
+                    class="primary-button"
+                >
+                    Update Status
+                </button>
+
+            </div>
+
+        </section>
+        <!-- Vulnerability Details Modal -->
+
+        <div
+            id="findingDetailsModal"
+            class="modal-overlay hidden"
+        >
+
+            <div class="modal finding-details-modal">
+
+                <div class="modal-header">
+
+                    <div>
+
+                        <h3 id="findingDetailsTitle">
+                            Vulnerability Details
+                        </h3>
+
+                        <span
+                            id="findingDetailsId"
+                            class="finding-details-id"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        id="closeFindingDetailsButton"
+                        class="modal-close"
+                        type="button"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="findingDetailsContent"
+                    class="modal-body"
+                >
+                    Loading...
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+
+<script src="../js/auth.js"></script>
+
+<script src="../js/assessments.js"></script>
+
+</body>
+
+</html>

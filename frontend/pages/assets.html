@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SecureSphere | Assets</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/assets.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h1>SecureSphere</h1>
+
+            <span>
+                Security Operations
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="/app/pages/dashboard.html"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="/app/pages/assets.html"
+                class="nav-item active"
+            >
+                Assets
+            </a>
+
+
+            <a
+    		href="/app/pages/vulnerabilities.html"
+    		class="nav-item"
+	    >
+    		Vulnerabilities
+	    </a>
+
+
+            <a href="/app/pages/security-events.html" class="nav-item">
+                Security Events
+            </a>
+
+
+            <a href="/app/pages/alerts.html" class="nav-item">
+                Alerts
+            </a>
+
+
+            <a href="/app/pages/incidents.html" class="nav-item">
+                Incidents
+            </a>
+
+
+            <a href="/app/pages/risk-assessment.html" class="nav-item">
+                Risk Assessment
+            </a>
+
+
+            <a href="/app/pages/assessments.html" class="nav-item">
+                Assessments
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    Asset Management
+                </h2>
+
+                <p>
+                    Manage and monitor registered assets
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <span id="userName">
+                    User
+                </span>
+
+                <span
+                    id="userRole"
+                    class="role-badge"
+                >
+                    ROLE
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- TOOLBAR -->
+
+        <section class="asset-toolbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search asset, hostname, IP or owner..."
+                >
+
+            </div>
+
+
+            <select id="criticalityFilter">
+
+                <option value="">
+                    All Criticality
+                </option>
+
+                <option value="CRITICAL">
+                    Critical
+                </option>
+
+                <option value="HIGH">
+                    High
+                </option>
+
+                <option value="MEDIUM">
+                    Medium
+                </option>
+
+                <option value="LOW">
+                    Low
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="ACTIVE">
+                    Active
+                </option>
+
+                <option value="INACTIVE">
+                    Inactive
+                </option>
+
+                <option value="RETIRED">
+                    Retired
+                </option>
+
+            </select>
+
+
+            <select id="environmentFilter">
+
+                <option value="">
+                    All Environments
+                </option>
+
+                <option value="DEVELOPMENT">
+                    Development
+                </option>
+
+                <option value="TEST">
+                    Test
+                </option>
+
+                <option value="PRODUCTION_SIMULATION">
+                    Production Simulation
+                </option>
+
+            </select>
+
+
+            <button
+                id="addAssetButton"
+                class="primary-button"
+            >
+                + Add Asset
+            </button>
+
+        </section>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="assetMessage"
+            class="asset-message"
+        ></div>
+
+
+        <!-- TABLE -->
+
+        <section class="panel asset-panel">
+
+            <div class="panel-header asset-header">
+
+                <div>
+
+                    <h3>
+                        Registered Assets
+                    </h3>
+
+                    <p id="assetCount">
+                        Loading assets...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Asset</th>
+                            <th>Type</th>
+                            <th>IP / Hostname</th>
+                            <th>Owner</th>
+                            <th>Criticality</th>
+                            <th>Environment</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="assetTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ADD / EDIT MODAL -->
+
+<div
+    id="assetModal"
+    class="modal hidden"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3 id="modalTitle">
+                Add Asset
+            </h3>
+
+            <button
+                id="closeModalButton"
+                class="close-button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="assetForm">
+
+            <input
+                type="hidden"
+                id="assetId"
+            >
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="assetName">
+                        Asset Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="assetName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="assetType">
+                        Asset Type *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="assetType"
+                        placeholder="SERVER"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="operatingSystem">
+                        Operating System
+                    </label>
+
+                    <input
+                        type="text"
+                        id="operatingSystem"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="ipAddress">
+                        IP Address
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ipAddress"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="hostname">
+                        Hostname
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hostname"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="owner">
+                        Owner
+                    </label>
+
+                    <input
+                        type="text"
+                        id="owner"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="criticality">
+                        Criticality
+                    </label>
+
+                    <select id="criticality">
+
+                        <option value="LOW">
+                            Low
+                        </option>
+
+                        <option value="MEDIUM" selected>
+                            Medium
+                        </option>
+
+                        <option value="HIGH">
+                            High
+                        </option>
+
+                        <option value="CRITICAL">
+                            Critical
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="environment">
+                        Environment
+                    </label>
+
+                    <select id="environment">
+
+                        <option value="DEVELOPMENT">
+                            Development
+                        </option>
+
+                        <option value="TEST" selected>
+                            Test
+                        </option>
+
+                        <option value="PRODUCTION_SIMULATION">
+                            Production Simulation
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelButton"
+                    class="secondary-button"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Save Asset
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/assets.js"></script>
+
+</body>
+
+</html>

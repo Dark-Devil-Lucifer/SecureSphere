@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SecureSphere | Security Events</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/security-events.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h1>SecureSphere</h1>
+
+            <span>
+                Security Operations
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="assets.html"
+                class="nav-item"
+            >
+                Assets
+            </a>
+
+
+            <a
+                href="vulnerabilities.html"
+                class="nav-item"
+            >
+                Vulnerabilities
+            </a>
+
+
+            <a
+                href="/app/pages/security-events.html"
+                class="nav-item active"
+            >
+                Security Events
+            </a>
+
+
+            <a
+                href="/app/pages/alerts.html"
+                class="nav-item"
+            >
+                Alerts
+            </a>
+
+
+            <a
+                href="/app/pages/incidents.html"
+                class="nav-item"
+            >
+                Incidents
+            </a>
+
+
+            <a
+                href="/app/pages/risk-assessment.html"
+                class="nav-item"
+            >
+                Risk Assessment
+            </a>
+
+
+            <a
+                href="/app/pages/assessments.html"
+                class="nav-item"
+            >
+                Assessments
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    Security Events
+                </h2>
+
+                <p>
+                    Monitor and investigate security-related events
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <span id="userName">
+                    User
+                </span>
+
+                <span
+                    id="userRole"
+                    class="role-badge"
+                >
+                    ROLE
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- TOOLBAR -->
+
+        <section class="events-toolbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search event ID, type, source or description..."
+                >
+
+            </div>
+
+
+            <select id="severityFilter">
+
+                <option value="">
+                    All Severity
+                </option>
+
+                <option value="CRITICAL">
+                    Critical
+                </option>
+
+                <option value="HIGH">
+                    High
+                </option>
+
+                <option value="MEDIUM">
+                    Medium
+                </option>
+
+                <option value="LOW">
+                    Low
+                </option>
+
+                <option value="INFORMATIONAL">
+                    Informational
+                </option>
+
+            </select>
+
+
+            <select id="categoryFilter">
+
+                <option value="">
+                    All Categories
+                </option>
+
+                <option value="AUTHENTICATION">
+                    Authentication
+                </option>
+
+                <option value="SYSTEM">
+                    System
+                </option>
+
+                <option value="APPLICATION">
+                    Application
+                </option>
+
+                <option value="NETWORK">
+                    Network
+                </option>
+
+                <option value="PERMISSION">
+                    Permission
+                </option>
+
+                <option value="SECURITY_ALERT">
+                    Security Alert
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="NEW">
+                    New
+                </option>
+
+                <option value="REVIEWED">
+                    Reviewed
+                </option>
+
+                <option value="RESOLVED">
+                    Resolved
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- EVENT SUMMARY -->
+
+        <section class="event-summary">
+
+            <div>
+
+                <strong id="eventCount">
+                    0 events found
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- EVENTS TABLE -->
+
+        <section class="events-card">
+
+            <div class="table-wrapper">
+
+                <table class="events-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Event ID
+                            </th>
+
+                            <th>
+                                Event Type
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Source
+                            </th>
+
+                            <th>
+                                Timestamp
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="eventTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="empty-state"
+                            >
+                                Loading security events...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- EVENT DETAILS MODAL -->
+
+<div
+    id="eventModal"
+    class="modal-overlay"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3>
+                Security Event Details
+            </h3>
+
+            <button
+                id="closeModalButton"
+                class="modal-close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="eventDetails"
+            class="event-details"
+        >
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                id="reviewButton"
+                class="secondary-button"
+            >
+                Mark Reviewed
+            </button>
+
+
+            <button
+                id="resolveButton"
+                class="primary-button"
+            >
+                Mark Resolved
+            </button>
+
+
+            <button
+                id="cancelButton"
+                class="cancel-button"
+            >
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+
+<script src="../js/auth.js"></script>
+
+<script src="../js/security-events.js"></script>
+
+
+</body>
+
+</html>
